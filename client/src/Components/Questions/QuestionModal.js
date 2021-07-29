@@ -134,6 +134,12 @@ const QuestionModal =(props) =>{
         setCurrentAnswer(event.target.value);
       }
       
+      const downloadBtn=()=>{
+        if(props.question.filesAssociated !== " ")
+        return(<a href={props.question.filesAssociated} target="blank"><button className="quesLink">Download</button></a>)
+        else
+        return(<button className="quesLink disabled" disabled>Download</button>)
+      }
       
     return(
           <>
@@ -149,7 +155,10 @@ const QuestionModal =(props) =>{
             <p className="quesBody">{props.question.title}</p>
             <p className="quesBody">{props.question.body}</p>
             <div className="quesButtons">
-                <a href={props.question.filesAssociated} target="blank"><button className="quesLink">Download</button></a>
+                {
+                  downloadBtn()
+                }
+              
                 <button className="hintButton" onClick={hintModalHandler}>Hint</button>
             </div>
             {
