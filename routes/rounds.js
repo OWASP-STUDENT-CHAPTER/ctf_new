@@ -61,7 +61,7 @@ router.get('/roundDetails', isAuthenticated, async(req, res) => {
       TIME_STONE_MINUTES_ADVANTAGE = 30;
     }
   if(Number(team.progress.roundNumber) >= Number(event.currentRound)){
-    res.send(
+    return res.send(
       {
         "duration": msToTime(event.endTime - event.startTime), 
         "timeRemaining": msToTime(0),

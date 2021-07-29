@@ -35,7 +35,7 @@ router.post("/activatePower", isAuthenticated, async (req, res) => {
 router.post("/activateSpace", isAuthenticated, async (req, res) => {
   const team = req.user;
   if (team.stones.includes("space")) {
-    if (team.progress.roundNumber !== 5) {
+    if ((team.progress.roundNumber !== 5) && (team.progress.roundNumber !== 4) ) {
       team.stoneActive.push("space");
       const index = team.stones.indexOf("space");
       team.stones.splice(index, 1);

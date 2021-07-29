@@ -185,7 +185,6 @@ router.post("/submitAnswer/:qId", async (req, res) => {
   const { qId } = req.params; //! valid id
   const { error, value } = submitAnswerValidator(req.body);
   const team = req.user;
-  const eventObj = req.app.get("event");
   let finished = false;
   let snap = false;
 
@@ -198,70 +197,58 @@ router.post("/submitAnswer/:qId", async (req, res) => {
     return res
       .status(400)
       .send({ error: "question id not found", message: "invalid question" });
-  // console.log(Number(eventObj.currentRound),Number(question.roundNumber));
 
-  // if (Number(eventObj.currentRound)!==Number(question.roundNumber))
-  //   return res.status(400).send({
-  //     error: "mismatching rounds",
-  //     message: "cant ans this question right now",
-  //   });
-  let f = false;
+  const GOT_ALL_STONES = team.stones.includes("power") && team.stones.includes("space") && team.stones.includes("reality") && team.stones.includes("soul") && team.stones.includes("time") && team.stones.includes("mind");
+  const IS_LAST_QUESTION_OF_EVENT = (team.progress.roundNumber === 5) && (team.progress.questionNumber + 1 === question.questionNumber);
 
-  // console.log("team.progress.questionNumber ", team.progress.questionNumber);
-  // console.log("question.questionNumber ", question.questionNumber);
-  if (team.progress.questionNumber >= question.questionNumber) {
-    return res.status(400).send({
+  const HAS_TEAM_ADVANCED_TO_NEXT_ROUND = (team.progress.roundNumber >= question.roundNumber);
+  const HAS_TEAM_ADVANCED_TO_NEXT_QUESTION = (team.progress.questionNumber >= question.questionNumber);
+  const HAS_TEAM_FINSHED_EVENT = (team.progress.roundNumber === -1) || (team.finished);
+  
+  const IS_CORRECT = await bcrypt.compare(value.answer, question.answer);
+  if(HAS_TEAM_ADVANCED_TO_NEXT_ROUND || HAS_TEAM_ADVANCED_TO_NEXT_QUESTION || HAS_TEAM_FINSHED_EVENT){
+    let snap, finished;
+    if (GOT_ALL_STONES) {
+      snap = true;
+    }
+    if (IS_LAST_QUESTION_OF_EVENT) {
+      finished = true
+    }
+    return res.status(200).send({
       data: {
-        correct: true,
+        correct: IS_CORRECT,
       },
       finishStatus: {
-        finished: false,
-        snap: false,
+        finished: finished,
+        snap: snap,
       },
     });
   }
 
-  const correct = await bcrypt.compare(value.answer, question.answer);
-
-  if (correct) {
-    // Check if this is the last question of the current round
-    const progress = req.user.progress;
+  if (IS_CORRECT) {
 
     const query = {
       questionNumber: question.questionNumber + 1,
-      roundNumber: progress.roundNumber + 1,
+      roundNumber: team.progress.roundNumber + 1,
     };
-    const qno = question.questionNumber;
     const nextQuestion = await Question.findOne(query);
 
-    // console.log(query)
-    // console.log(nextQuestion);
     if (nextQuestion) {
       //If it is not the last question and the next question is also there, then just increment the progress question number
       team.progress = {
         questionNumber: question.questionNumber,
         roundNumber: team.progress.roundNumber,
       };
-    } else {
-      // console.log(STONES);
-      //If next question is not there in the current round, progress to the next round
-      if (
-        team.progress.roundNumber === 5 &&
-        team.progress.questionNumber + 1 === qno
-      ) {
-        // console.log(team.finished);
-        if (!team.stones.includes(STONES[team.progress.roundNumber])) {
-          team.stones.push(STONES[team.progress.roundNumber]);
-        }
+    } 
+    else {
+      const CURRENT_ROUND_ELIGIBLE_STONE = STONES[team.progress.roundNumber];
+      if (!team.stones.includes(CURRENT_ROUND_ELIGIBLE_STONE)) {
+        team.stones.push(CURRENT_ROUND_ELIGIBLE_STONE);
+      }
+      if (IS_LAST_QUESTION_OF_EVENT) {
+        
 
-        if (
-          team.stones.includes("power") &&
-          team.stones.includes("space") &&
-          team.stones.includes("reality") &&
-          team.stones.includes("soul") &&
-          team.stones.includes("time") &&
-          team.stones.includes("mind")
-        ) {
+        if (GOT_ALL_STONES) {
           snap = true;
           team.snap = true;
         }
@@ -272,10 +259,6 @@ router.post("/submitAnswer/:qId", async (req, res) => {
           roundNumber: -1,
         };
       } else {
-        if (!team.stones.includes(STONES[team.progress.roundNumber])) {
-          team.stones.push(STONES[team.progress.roundNumber]);
-        }
-
         team.progress = {
           questionNumber: 0,
           roundNumber: team.progress.roundNumber + 1,
@@ -288,17 +271,12 @@ router.post("/submitAnswer/:qId", async (req, res) => {
     } else {
       team.points = question.points;
     }
-    await team.save(function (err) {
-      if (err) {
-        //  console.log(err);
-        return;
-      }
-    });
+    await team.save();
   }
 
   res.send({
     data: {
-      correct,
+        correct: IS_CORRECT,
     },
     finishStatus: {
       finished,

@@ -16,7 +16,7 @@ const Snap=()=>{
         setIsSnap(true);
        setTimeout(() => {
             setRedirect(<Redirect to ="/end"></Redirect>);
-        }, 10000);
+        }, 7000);
     }
     return(
         <div className="snap-div">
