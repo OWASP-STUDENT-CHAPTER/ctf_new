@@ -193,3 +193,12 @@
 }
 
 
+.disabled
+{
+    filter: grayscale(1);
+    background-color: rgb(113, 49, 209);
+}
+.disabled:hover{
+    background-color: rgb(149, 102, 219);
+    color: rgb(255, 253, 253);
+}
