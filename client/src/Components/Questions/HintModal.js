@@ -26,7 +26,7 @@ const HintModal = (props) => {
                     <p style={{color:"red" , textAlign: "center", marginBottom: "20px"}}>Hint cost : {props.hintCost + " "}points</p>
                     :null
                 }
-                <h4 style={{color:"grey" , textAlign: "center", marginBottom:"10px"}}>(No Points Will Be Deducted If Hint Has Been Taken Once Or Power Stone Is Active)</h4>
+                <h4 style={{color:"grey" , textAlign: "center", marginBottom:"10px", padding:"3px"}}>(No Points Will Be Deducted If Hint For This Question Has Already Been Taken Or Power Stone Is In Use)</h4>
                 <div className="buttons">
                     <button onClick={acceptHint}>Yes</button>
                     <button onClick={modalHandler}>Cancel</button>
