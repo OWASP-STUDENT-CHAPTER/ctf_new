@@ -10,27 +10,27 @@ const teamSchema = new mongoose.Schema({
   points: {
     type: Number,
     required: true,
-    default:0,
+    default: 0,
   },
   powerHints: {
     type: Number,
     required: true,
-    default:0,
+    default: 0,
   },
   snap: {
     type: Boolean,
     required: true,
-    default:false,
+    default: false,
   },
   finished: {
     type: Boolean,
     required: true,
-    default:false,
+    default: false,
   },
   stoneActive: [
     {
-    type: String,
-    trim: true,
+      type: String,
+      trim: true,
     },
   ],
   members: [
@@ -39,16 +39,16 @@ const teamSchema = new mongoose.Schema({
       ref: Participant,
     },
   ],
-  stones : [
+  stones: [
     {
-        type: String,
-        enum: ['power','space','reality','soul','time','mind',''],
-    } 
+      type: String,
+      enum: ["power", "space", "reality", "soul", "time", "mind", ""],
+    },
   ],
-  hintsTaken : [
+  hintsTaken: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-    } 
+      type: mongoose.Schema.Types.ObjectId,
+    },
   ],
   progress: {
     questionNumber: {
@@ -62,5 +62,5 @@ const teamSchema = new mongoose.Schema({
   },
 });
 
-const Team = eventDB.model("Team", teamSchema);
+const Team = eventDB.model("EventTeam", teamSchema);
 module.exports = Team;
