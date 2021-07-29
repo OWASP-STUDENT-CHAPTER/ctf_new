@@ -207,16 +207,26 @@ router.post("/submitAnswer/:qId", async (req, res) => {
   //   });
   let f = false;
 
+  // console.log("team.progress.questionNumber ", team.progress.questionNumber);
+  // console.log("question.questionNumber ", question.questionNumber);
+  if (team.progress.questionNumber >= question.questionNumber) {
+    return res.status(400).send({
+      data: {
+        correct: true,
+      },
+      finishStatus: {
+        finished: false,
+        snap: false,
+      },
+    });
+  }
+
   const correct = await bcrypt.compare(value.answer, question.answer);
+
   if (correct) {
     // Check if this is the last question of the current round
     const progress = req.user.progress;
-    if (team.progress.questionNumber > question.questionNumber) {
-      // f = true;
-      return res
-        .status(400)
-        .send({ error: "already submitted", message: "already submitted" });
-    }
+
     const query = {
       questionNumber: question.questionNumber + 1,
       roundNumber: progress.roundNumber + 1,
