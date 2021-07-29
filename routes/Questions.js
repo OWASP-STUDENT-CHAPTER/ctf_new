@@ -205,10 +205,17 @@ router.post("/submitAnswer/:qId", async (req, res) => {
   //     error: "mismatching rounds",
   //     message: "cant ans this question right now",
   //   });
+  let f = false;
+
   const correct = await bcrypt.compare(value.answer, question.answer);
   if (correct) {
     // Check if this is the last question of the current round
     const progress = req.user.progress;
+    if (team.progress.questionNumber > question.questionNumber)
+      return res
+        .status(400)
+        .send({ error: "already submitted", message: "already submitted" });
+
     const query = {
       questionNumber: question.questionNumber + 1,
       roundNumber: progress.roundNumber + 1,
@@ -264,11 +271,12 @@ router.post("/submitAnswer/:qId", async (req, res) => {
         };
       }
     }
-    if (team.points) {
-      team.points = team.points + question.points;
-    } else {
-      team.points = question.points;
-    }
+    if (f)
+      if (team.points) {
+        team.points = team.points + question.points;
+      } else {
+        team.points = question.points;
+      }
     await team.save(function (err) {
       if (err) {
         //  console.log(err);
