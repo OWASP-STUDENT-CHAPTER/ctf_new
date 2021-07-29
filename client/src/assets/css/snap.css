@@ -1,0 +1,28 @@
+.snap-div
+{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.snap-div img
+{
+	height: 100%;
+}
+
+.snap-div p
+{
+	color: white;
+	text-align: center;
+	font-size: 1rem;
+	font-family: 'Press Start 2P', cursive;
+}
+
+.hand
+{
+	cursor: pointer;
+	height: 500px !important;
+}

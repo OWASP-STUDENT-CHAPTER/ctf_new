@@ -1,0 +1,73 @@
+.pacman-container
+{
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    position: relative;
+    bottom: 20px;
+}
+
+.pacman-header
+{
+    background-color: rgba(0, 0, 0, 0.493);
+    margin: 20px  auto 80px;
+    padding: 20px;
+    text-align: center;
+    line-height: 1.6em;
+}
+.pacman-heading
+{
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    
+}
+.pacman-p
+{
+    margin: 30px 0 0;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+iframe.pacman
+{
+    width: 342px; 
+    height: 450px; 
+    border:none; 
+    transform: scale(1.25);
+}
+
+button.game
+{
+    position: relative;
+    bottom: -60px;
+    margin-left: 35px;
+    font-size: 1.1rem;
+    background-color: rgb(149, 102, 219);
+    border-radius: 8px;
+    padding: 10px 10px;
+    color: rgb(255, 253, 253);
+    border: none;
+    font-family: 'Barcade No Bar', sans-serif;
+    height: fit-content;
+    cursor: pointer;
+}
+
+button.active:hover
+{
+    background-color: rgb(240, 234, 234);
+    color: rgb(128, 65, 223);
+}
+
+.disabled
+{
+    filter: grayscale(1);
+}
+.disabled:hover{
+    background-color: rgb(149, 102, 219);
+    color: rgb(255, 253, 253);
+}

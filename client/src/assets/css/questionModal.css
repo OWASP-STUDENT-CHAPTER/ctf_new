@@ -1,0 +1,195 @@
+.quesModal
+{
+    padding: 30px 0;
+    background-color: rgba(36, 36, 36, 0.781);
+    z-index: 5;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 0px 50px rgb(0, 0, 0);
+    backdrop-filter: blur(15px);
+    color: rgb(221, 221, 221);
+    justify-self: flex-end;
+}
+.quesNumber
+{
+    margin: 10px auto 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem;
+    color: rgb(221, 221, 221);
+}
+
+.quesBody
+{
+    padding: 10px 30px;
+    margin: 0px auto;
+    font-size: 1.2rem;
+    font-family: 'Oswald', sans-serif;
+    transform: scaleY(0.9);
+}
+
+
+.quesButtons
+{
+    padding: 10px;
+    margin: 10px auto 10px;   
+}
+.powerHint
+{
+    
+    border: 2px dashed rgb(149, 102, 219);
+    padding: 4px;
+}
+.quesButtons button, .hintModal button
+{
+    padding: 8px 10px;
+    margin: 5px 10px;
+    border: none;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background-color: rgb(149, 102, 219);
+    border: 2px solid rgb(149, 102, 219);
+    border-radius: 8px;
+    color: white;
+}
+.quesButtons button:hover
+{
+    background-color: rgb(113, 49, 209);
+}
+
+.hintButton
+{
+    background-color: transparent !important;
+    border: 2px solid rgb(149, 102, 219) !important;
+    color: rgb(149, 102, 219) !important;
+}
+.hintButton:hover
+{
+    background-color: rgb(149, 102, 219) !important;
+    color: white !important;
+}
+
+.hint
+{
+    margin: 10px auto;
+}
+
+
+
+.answer
+{
+    padding: 5px;
+    margin: 10px auto 10px;
+    width: 80%;
+    text-align: center;
+}
+
+.answer input
+{
+    padding: 10px 10px;
+    margin:0;
+    width: 60%;
+    border-radius: 5px;
+    border:none;
+}
+
+.answer input::placeholder
+{
+    font-size: 0.8rem;
+}
+
+.submitAnswer
+{
+    padding: 10px 15px;
+    margin: 0 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(147, 221, 243);
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+}
+
+.submitAnswer:hover
+{
+    background-color: rgb(60, 210, 255);
+}
+
+.hintModal
+{
+    position: absolute;
+    width: 50%;
+    bottom: 30%;
+    left: 25%;
+    z-index: 10;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: bounce 1s ease 0s normal none;
+    box-shadow: 0px 0px 100px 60px rgba(0, 0, 0, 0.692);
+    border: 2px solid rgb(149, 102, 219);
+}
+
+.hintModal h2{
+    font-size: 1.2rem;
+    font-family: 'Press Start 2P', cursive;
+    margin: 30px 20px;
+}
+
+.hintModal .buttons
+{
+    margin: 10px auto 30px;
+    width: 80%;
+    justify-content: center;
+}
+
+.hintModal button
+{
+    width: 50%;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.hintModal button:hover
+{
+    background-color: white;
+    border: 2px solid rgb(149, 102, 219);
+    color: rgb(149, 102, 219);
+}
+
+.swal-button
+{
+    background-color: rgb(149, 102, 219);
+}
+
+.swal-overlay {
+    background-color: rgba(0, 0, 0, 0.561);
+  }
+
+@keyframes bounce {
+    0.0%{
+        transform: scale(1.3);
+    }
+    24.9%{
+        transform: scale(1);
+    }
+    50.6%{
+        transform: scale(1.3);
+    }
+    75.0%{
+        transform: scale(1);
+    }
+}
+
+
