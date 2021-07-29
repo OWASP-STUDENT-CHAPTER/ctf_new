@@ -211,11 +211,12 @@ router.post("/submitAnswer/:qId", async (req, res) => {
   if (correct) {
     // Check if this is the last question of the current round
     const progress = req.user.progress;
-    if (team.progress.questionNumber > question.questionNumber)
+    if (team.progress.questionNumber > question.questionNumber) {
+      f = true;
       return res
         .status(400)
         .send({ error: "already submitted", message: "already submitted" });
-
+    }
     const query = {
       questionNumber: question.questionNumber + 1,
       roundNumber: progress.roundNumber + 1,
