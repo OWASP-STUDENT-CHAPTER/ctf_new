@@ -22,6 +22,10 @@ const teamSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  snappedAt: {
+    type: Date,
+    required: false,
+  },
   finished: {
     type: Boolean,
     required: true,

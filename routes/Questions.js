@@ -251,6 +251,7 @@ router.post("/submitAnswer/:qId", async (req, res) => {
         if (GOT_ALL_STONES) {
           snap = true;
           team.snap = true;
+          team.snappedAt = Date.now();
         }
         finished = true;
         team.finished = true;
